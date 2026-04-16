@@ -40,3 +40,11 @@ This repo includes a workflow at `.github/workflows/deploy-pages.yml` that deplo
 5. Push to `main` (or run the workflow manually from the **Actions** tab).
 
 After deployment, your site will be available at your repository's GitHub Pages URL.
+
+## Stripe redirect target
+
+Use the confirmation hash route for your Stripe success URL, for example:
+
+`https://<your-pages-url>/#/confirmation`
+
+The app stores the entered account details and selected plan in session storage so the confirmation screen can show the payment summary after checkout redirects back.
