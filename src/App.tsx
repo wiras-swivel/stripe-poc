@@ -26,16 +26,6 @@ type FormState = {
   confirmPassword: string;
 };
 
-type Plan = {
-  id: string;
-  name: string;
-  price: string;
-  cadence: string;
-  description: string;
-  features: string[];
-  recommended?: boolean;
-};
-
 type PersistedCheckoutData = {
   form: FormState;
   selectedPlanId: string;
@@ -45,34 +35,6 @@ const STORAGE_KEY = 'stripe-poc-checkout-data';
 const stripePricingTableScriptId = 'stripe-pricing-table-script';
 const publishableKey = (import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY as string | undefined)?.trim() || '';
 const pricingTableId = (import.meta.env.VITE_STRIPE_PRICING_TABLE_ID as string | undefined)?.trim() || '';
-
-const plans: Plan[] = [
-  {
-    id: 'starter',
-    name: 'Starter',
-    price: '$19',
-    cadence: 'per month',
-    description: 'For small teams getting up and running quickly.',
-    features: ['1 workspace', 'Basic reporting', 'Email support'],
-  },
-  {
-    id: 'professional',
-    name: 'Professional',
-    price: '$49',
-    cadence: 'per month',
-    description: 'Best fit for the POC and growing teams.',
-    features: ['Unlimited workspaces', 'Advanced reporting', 'Priority support'],
-    recommended: true,
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise',
-    price: '$99',
-    cadence: 'per month',
-    description: 'For larger teams that need more control.',
-    features: ['Custom onboarding', 'Dedicated support', 'Usage controls'],
-  },
-];
 
 const theme = createTheme({
   palette: {
@@ -210,12 +172,6 @@ function App() {
 
     saveCheckoutData({ form, selectedPlanId });
     setView('pricing');
-  };
-
-  const goToConfirmation = () => {
-    saveCheckoutData({ form, selectedPlanId });
-    window.location.hash = '/confirmation';
-    setView('confirmation');
   };
 
   return (
